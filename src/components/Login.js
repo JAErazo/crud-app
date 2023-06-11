@@ -1,61 +1,63 @@
-/*
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch('http://localhost:3000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await response.json();
-    if (response.ok) {
-      // Login successful
-      history.push('/home');
+  const handleLogin = () => {
+    // Aquí debes realizar la verificación de las credenciales
+    // Puedes usar una lógica personalizada o realizar una llamada a una API para verificar las credenciales
+
+    // Por simplicidad, vamos a simular una verificación de credenciales
+    if (username === 'usuario' && password === 'contraseña') {
+      setIsLoggedIn(true);
     } else {
-      // Login failed
-      console.log(data.error);
+      alert('Credenciales inválidas.');
     }
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername('');
+    setPassword('');
+  };
+
+  if (isLoggedIn) {
+    return (
+      <div>
+        <h2>Bienvenido, {username}!</h2>
+        <button onClick={handleLogout}>Cerrar sesión</button>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <h2>Iniciar sesión</h2>
+      <input
+        type="text"
+        placeholder="Nombre de usuario"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <br />
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <br />
+      <button onClick={handleLogin}>Iniciar sesión</button>
     </div>
   );
 };
 
 export default Login;
-*/
 
 
+/*
 import React, { useState } from 'react';
 
 const Login = ({ onLogin }) => {
@@ -96,3 +98,4 @@ const Login = ({ onLogin }) => {
 };
 
 export default Login;
+*/
